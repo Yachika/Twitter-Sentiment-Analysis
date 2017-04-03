@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title>Python Flask Bucket List App</title>
+	
+	<!--<link href="../static/css/homeCss.css" rel="stylesheet">-->
+	<script src="../static/js/jquery-3.1.0.min.js"></script>
+	<!--<script src="../static/js/sentAnalysis.js"></script>-->
+	<style>
+		body{
+			margin:0;
+		}
+		#body {    
+			width:100%;
+			height:850px;
+			background-color:#485565;
+			margin:0 0 0 0;
+			padding:0;
+			float:left;
+		}
+		#pageTop
+		{
+			width: 100%;
+			height: 100px;
+			background-color: #0FCABF;
+			margin:0 0 0 0;
+			padding:0px;
+			float:left;
+		}
+		#navBar
+		{
+			width: 100%;
+			height: 100px;
+			background-color: #0FCABF;
+			margin:0 0 0 0;
+			padding:0px;
+			/*position: fixed;*/
+			float:left;
+			overflow:hidden;
+		}
+		.navbar-fixed {
+			top: 0;
+			z-index: 100;
+			position: fixed;
+			width: 100%;
+			height:100px;
+			/*background-color:#0FCABF;*/
+			opacity:1;
+		}
+		#leftNav
+		{
+			width:680px;
+			height:80%;
+			/*background-color:pink;*/
+			float:left;
+			color:white;
+			font-family:Arial Rounded MT Bold;
+			font-size:50px;
+			padding-top:20px;
+			padding-left:20px;
+			text-align:left;
+		}
+		#rightNav{
+			width:645px;
+			height:100%;
+			float:left;
+		}
+		#links{
+			width:100%;
+			height:50px;
+			/*background-color:green;*/
+			float:left;
+			margin-top:25px;
+		}
+		#home{
+			width:110px;
+			height:35px;
+			/*background-color:pink;*/
+			float:left;
+			margin-left:150px;
+			padding-top:15px;
+			cursor:pointer;
+		}
+		#docs{
+			width:110px;
+			height:35px;
+			/*background-color:yellow;*/
+			float:left;
+			padding-top:15px;
+			cursor:pointer;
+		}
+		#demo{
+			width:110px;
+			height:35px;
+			/*background-color:red;*/
+			float:left;
+			padding-top:15px;
+			cursor:pointer;
+		}
+		#contact{
+			width:110px;
+			height:35px;
+			/*background-color:blue;*/
+			float:left;
+			padding-top:15px;
+			cursor:pointer;
+		}
+		#pageMid
+		{
+			width: 100%;
+			height: auto;
+			background-color:white;
+			float:left;
+		}
+		#input{
+			width:1000px;
+			height:540px;
+			margin-top: 50px;
+			margin-bottom:50px;
+			align:center;
+			/*background-color:red;*/
+		}
+		#heading
+		{
+			width:100%;
+			height:70px;
+			text-align: left;
+			/*background: pink;*/
+		}
+		#inputBoxes
+		{
+			width:100%;
+			height:445px;
+			background-color:#F4F4F4;
+			border-style: solid;
+			border-width: 2px;
+			border-color: #ECECEC;
+			padding-top:25px;
+		}
+		.url{
+			height: 30px;
+			width: 900px;
+			color: #000000;
+			font-size: 24px;
+			font-family: Arial Narrow;
+			border-style: solid;
+			border-width: 2px;
+			border-color: #ECECEC;
+		}
+		.scrollable {
+			height:310px;
+			width: 900px;
+			font-family: Arial Narrow;
+			font-size: 24px;
+			overflow:scroll;
+			color: #000000;
+			border-style: solid;
+			border-width: 2px;
+			border-color: #ECECEC;
+			margin-top:10px;
+		}
+		#analyze{
+			width:140px;
+			height:35px;
+			background-color: #0FCABF;
+			float:right;
+			margin-right:50px;
+			margin-top:10px;
+			font-size: 18px;
+			font-family: Franklin Gothic Medium;
+			color:white;
+			padding-top:15px;
+			cursor:pointer;
+		}
+		#results{
+			width:1000px;
+			height:399px;
+			margin-top: 20px;
+			margin-bottom:50px;
+			align:center;
+			/*background-color:pink;*/
+			display:none;
+		}
+		.btns{
+			width:170px;
+			height: 30px;
+			background-color: #F4F4F4;
+			color: #343434;
+			border-width: 2px;
+			cursor: pointer;
+			margin-bottom: 2px;
+			padding-bottom: 15px;
+			padding-left:20px;
+			padding-top:10px;
+			line-height: 30px;
+			text-align:left;
+			font-size:20px;
+			font-family:Arial Narrow;
+		}
+		#leftButtons
+		{
+			width:190px;
+			height:399px;
+			float:left;
+			background-color:#0FCABF;
+			margin-top:0px;
+		}
+		#displayResults
+		{
+			width:600px;
+			height:396px;
+			float:left;
+			background-color:#F4F4F4;
+			margin-left:8px;
+			/*margin-right:10px;*/
+			border-style: solid;
+			border-width: 2px;
+			border-color: #ECECEC;
+		}
+		.displayResText{
+			width:540px;
+			height: 358px;
+			overflow: scroll;
+			font-size: 24px;
+			font-family: Arial Narrow;
+			color: #000000;
+			margin-top:16px;
+			margin-left:15px;
+			border-style: solid;
+			border-width: 2px;
+			border-color: #ECECEC;
+		}
+		#rightButtons
+		{
+			width:190px;
+			height:342px;
+			float:right;
+			background-color:#0FCABF;
+			margin-top:0px;
+		}
+		#targets{
+			width:210px;
+			height:260px;
+			display:none; position:absolute;
+			margin-top:54%; margin-left:55%;
+			border-radius:10px;
+			z-index:1000;
+			background-color: #F4F4F4;
+			border-color: #0FCABF;
+			border-style: solid;
+			border-width: 2px;
+			/*padding-top: 50px;*/
+		}
+		#crossDivTars
+		{
+			width: 208px;
+			height: 30px;
+			border-radius:10px;
+			/*background-color: yellow;*/
+			margin-top: 0px;
+			float: left;
+			margin-bottom: 20px;
+		}
+		#crossImgTars
+		{
+			width:30px;
+			height: 30px;
+			float: right;
+			/*background-color: blue;*/
+			borde-radius:10px;
+			margin-top: 0px;
+			background: url(../static/img/crs.png);
+			background-size: 30px 30px;
+			background-repeat: no-repeat;
+			align:center;
+			cursor:pointer;
+		}
+
+		.tars{
+			width: 150px;
+			height: 30px;
+			color: #000000;
+			font-size: 15px;
+			margin-top:10px;
+		}
+		#send{
+			width: 100px;
+			height: 40px;
+			background-color: #0FCABF;
+			color: #F4F4F4;
+			cursor: pointer;
+			line-height: 30px;
+			margin-top: 20px;
+			margin-left: 55px;
+			padding-top: 5px;
+		}
+		#cats
+		{
+			width:210px;
+			height:270px;
+			display:none; position:absolute;
+			margin-top:58%; margin-left:28%;
+			border-radius:10px;
+			z-index:1000;
+			background-color: #F4F4F4;
+			border-color: #0FCABF;
+			border-style: solid;
+			border-width: 2px;
+			/*padding-top: 40px;*/
+			text-align:left;
+			/*padding-left: 30px;*/
+			line-height:35px;
+		}
+		#crossDivCats
+		{
+			width: 210px;
+			height: 30px;
+			border-radius:10px;
+			/*background-color: yellow;*/
+			margin-top: 0px;
+			float: left;
+		}
+		#crossImgCats
+		{
+			width:30px;
+			height: 30px;
+			float: right;
+			/*background-color: blue;*/
+			borde-radius:10px;
+			margin-top: 0px;
+			background: url(../static/img/crs.png);
+			background-size: 30px 30px;
+			background-repeat: no-repeat;
+			align:center;
+			cursor:pointer;
+		}
+		#radios
+		{
+			width:200px;
+			height:230px;
+			float:left;
+			/*background-color:pink;*/
+			padding: 10px 10px;
+		}
+		.catValues
+		{
+			cursor: pointer;
+		}
+		#categorize{
+			width: 130px;
+			height: 40px;
+			background-color: #0FCABF;
+			color: #F4F4F4;
+			cursor: pointer;
+			line-height: 30px;
+			margin-top: 20px;
+			align: center;
+			padding-top: 5px;
+			padding-left: 15px;
+		}
+		#pageBottom
+		{
+			width:100%;
+			height:150px;
+			float:left;
+			background-color:#333333;
+		}
+		#topic
+		{
+			width:100%;
+			height:45px;
+			/*background-color:pink;*/
+			float:left;
+			color:#F5F5F5;
+			font-family:Arial Rounded MT Bold;
+			font-size:35px;
+			text-align:center;
+			padding-top:5px;
+		}
+		#parLogos
+		{
+			width:100%;
+			height:50px;
+			/*background-color:green;*/
+			float:left;
+		}
+		#logos
+		{
+			width:130px;
+			height:30px;
+			/*background-color:blue;*/
+			margin-top:10px;
+		}
+		#fb
+		{
+			width:30px;
+			height:30px;
+			background-image:url(../static/img/fb.png);
+			float:left;
+			cursor:pointer;
+		}
+		#tw
+		{
+			width:30px;
+			height:30px;
+			background-image:url(../static/img/tw.png);
+			margin-left:20px;
+			float:left;
+			cursor:pointer;
+		}
+		#gplus
+		{
+			width:30px;
+			height:30px;
+			background-image:url(../static/img/g+.png);
+			margin-left:20px;
+			float:left;
+			cursor:pointer;
+		}
+		#copyright
+		{
+			width:98%;
+			height:40px;
+			/*background-color:yellow;*/
+			float:left;
+			text-align:right;
+			padding-top:10px;
+			padding-right:2%;
+			color:#EAEAEA;
+		}
+	</style>
+	<script>
+	$(document).ready(function() {
+		$(window).scroll(function () {
+		console.log($(window).scrollTop())
+		if ($(window).scrollTop() > 100) {
+			$('#navBar').addClass('navbar-fixed');
+		}
+		if ($(window).scrollTop() < 100) {
+			$('#navBar').removeClass('navbar-fixed');
+		}
+	});
+	});
+	function closeTargets()
+	{
+		$("#targets").slideUp(1000);
+	}
+	function closeCats()
+	{
+		$("#cats").slideUp(1000);
+	}
+	function showResults()
+	{
+		if(($("#url").val()=="") && $("#text").val()=="")
+			alert("Please enter either URL or Text");
+		else
+			document.getElementById('results').style.display = 'block';
+	}
+	function clicked(id)
+	{
+		//alert(id);
+		var input=$("#url").val();
+		var type="url";
+		if (input=="")
+		{
+			input=$("#text").val();
+			type="text";
+		}
+		$.ajax({
+			url: '/doAnal',
+			type: 'POST',
+			data: {input: input, btn: id, type: type},
+			success: function(response) {		
+				response=JSON.parse(response)
+				$("#resText").html(response);
+			},
+			error: function(error) {
+				alert(error);
+			}
+		});
+	}
+	function specifyTargets()
+	{
+	    $("#targets").fadeIn(1000);
+	}
+	function sendTargets()
+	{
+		//alert("hello");
+		$("#targets").slideUp(1000);
+		var input=$("#url").val();
+		var type="url";
+		if (input=="")
+		{
+			input=$("#text").val();
+			type="text";
+		}
+		var tar1=$("#tar1").val();
+		var tar2=$("#tar2").val();
+		var tar3=$("#tar3").val();
+		$.ajax({
+            url: '/targets',
+			type: 'POST',
+			data: {input: input, type: type, target1: tar1, target2: tar2, target3: tar3, btn: "targeted"},
+			success: function(response) {
+				response=JSON.parse(response)
+				$("#resText").html(response);
+			},
+			error: function(error) {
+                alert(error);
+			}
+        });
+	}
+	function specifyCats(id)
+	{
+		$("#cats").fadeIn(1000);
+	}
+	function sendCategories()
+	{
+		//alert("hello");
+		$("#cats").slideUp(1000);
+		var input=$("#url").val();
+		var type="url";
+		if (input=="")
+		{
+			input=$("#text").val();
+			type="text";
+		}
+		
+		var chkd=$('.catValues:checked').val();
+		//alert(chkd);
+		$.ajax({
+            url: '/categorization',
+			type: 'POST',
+			data: {input: input, type: type, radioBtn: chkd, btn: "categorizations"},
+			success: function(response) {
+				response=JSON.parse(response)
+				$("#resText").html(response);
+			},
+			error: function(error) {
+                alert(error);
+			}
+        });
+	}
+	</script>
+
+  </head>
+ <body><center>
+  
+	<div id="body">
+		<div id="targets">
+			<div id="crossDivTars">
+				<div id="crossImgTars" onclick="closeTargets();"></div>
+			</div>
+			<input type="text" class="tars" name="tar1" id="tar1" placeholder="Target1" autoFocus="autoFocus" />
+			<input type="text" class="tars" name="tar2" id="tar2" placeholder="Target2" />
+			<input type="text" class="tars" name="tar3" id="tar3" placeholder="Target3" />
+			<div id="send" onclick="return sendTargets();"><font size="+1" face="Verdana, Geneva, sans-serif">Send</font></div>
+		</div>
+		
+		<div id="cats">
+			<div id="crossDivCats">
+				<div id="crossImgCats" onclick="closeCats();"></div>
+			</div>
+			<div id="radios">
+				<input type="radio" name="gender" value="hotel" class="catValues"  checked><font size="+1">Hotel</font><br>
+				<input type="radio" name="gender" value="airline" class="catValues"><font size="+1">Airline</font><br>
+				<input type="radio" name="gender" value="restro" class="catValues"><font size="+1">Restaurant</font><br>
+				<input type="radio" name="gender" value="telecom" class="catValues"><font size="+1">Telecom</font><br>
+				<div id="categorize" onclick="return sendCategories();"><font size="+1" face="Verdana, Geneva, sans-serif">Categorize</font></div>
+			</div>
+		</div>
+		
+		<div id="pageTop">
+			<div id="navBar" class="">
+				<div id="leftNav">
+				Sentiment Analysis
+				</div>
+				<div id="rightNav">
+					<div id="links">
+						<div id="home" onclick="location.href='home'"><font size="4" color="#FFFFFF" face="Franklin Gothic Medium">Home</font></div>
+						<div id="docs" onclick="location.href='docs'"><font size="4" color="#FFFFFF" face="Franklin Gothic Medium">Docs</font></div>
+						<div id="demo" onclick="location.href='demo'"><font size="4" color="#FFFFFF" face="Franklin Gothic Medium">Demo</font></div>
+						<div id="contact" onclick="location.href='contact'"><font size="4" color="#FFFFFF" face="Franklin Gothic Medium">Contact</font></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="pageMid">
+			<div id="input">
+				<div id="heading"><font size="6" color="#343434" face="Franklin Gothic Medium">Analyze Text</font><br>
+					<font size="4" color="#B4B4B4" face="Calibri">Paste either text or url in respective fields.</font>
+				</div>
+				<div id="inputBoxes">
+					<input type="text" class="url" name="url" id="url" placeholder="Type URL Here">
+					<textarea name="text" class="scrollable" id="text" placeholder="Type Text Here"></textarea>
+					<div id="analyze" onclick="showResults();">Analyze</div>
+				</div>
+			</div>
+			<div id="results">
+				<div id="leftButtons">
+					<div id="sentiment" class="btns" onclick="clicked(this.id);"><font size="+1">Sentiments</font></div>
+					<div id="emotion" class="btns" onclick="clicked(this.id);"><font size="+1">Emotion</font></div>
+					<div id="entity" class="btns" onclick="clicked(this.id);"><font size="+1">Entities</font></div>
+					<div id="concept" class="btns" onclick="clicked(this.id);"><font size="+1">Concepts</font></div>
+					<div id="author" class="btns" onclick="clicked(this.id);"><font size="+1">Author</font></div>
+					<div id="keyword" class="btns" onclick="clicked(this.id);"><font size="+1">Keywords</font></div>
+					<div id="categories" class="btns" onclick="specifyCats(this.id)"><font size="+1">Categorizations</font></div>
+				</div>
+				<div id="displayResults">
+					<textarea id="resText" name="resText" class="displayResText" placeholder="See Results"></textarea>
+				</div>
+				<div id="rightButtons">
+					<div id="pos" class="btns" onclick="clicked(this.id);"><font size="+1">POS Tagging</font></div>
+					<div id="taxonomy" class="btns" onclick="clicked(this.id);"><font size="+1">Taxonomy</font></div>
+					<div id="textb" class="btns" onclick="clicked(this.id);"><font size="+1">Text</font></div>
+					<div id="targeted" class="btns" onclick="specifyTargets();"><font size="+1">Targeted Sentiment</font></div>
+					<div id="relation" class="btns" onclick="clicked(this.id);"><font size="+1">Relations</font></div>
+					<div id="typedRel" class="btns" onclick="clicked(this.id);"><font size="+1">Typed Relations</font></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="pageBottom">
+			<div id="topic">Sentiment Analysis</div>
+			<div id="parLogos">
+				<div id="logos">
+					<div id="fb"></div>
+					<div id="tw"></div>
+					<div id="gplus"></div>
+				</div>
+			</div>
+			<div id="copyright">Copyright  2016 | Privacy Policy</div>
+		</div>
+	</div>
+	
+  
+ </center>
+
+</body></html>
