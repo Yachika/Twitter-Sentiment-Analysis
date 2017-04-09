@@ -5,7 +5,6 @@ import json
 import urllib2
 from subprocess import Popen, PIPE
 #import posTagging
-import nltk
 #import bring_graph
 #import bring_tweets
 #import make_wordcloud
