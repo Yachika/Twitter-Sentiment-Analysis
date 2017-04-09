@@ -11,6 +11,7 @@ import tweepy
 import csv
 import datetime
 import nltk
+nltk.data.path.append('./nltk_data/')
 import codecs
 from sklearn.svm import LinearSVC, SVC
 import io
@@ -18,7 +19,6 @@ import re
 import unicodedata
 from os import path
 from PIL import Image
-import numpy as np
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 '''reload(sys)
 sys.setdefaultencoding('utf8')'''
