@@ -11,7 +11,7 @@ import tweepy
 import csv
 import datetime
 import nltk
-nltk.data.path.append('./nltk_data/')
+#nltk.data.path.append('./nltk_data/')
 import codecs
 from sklearn.svm import LinearSVC, SVC
 import io
