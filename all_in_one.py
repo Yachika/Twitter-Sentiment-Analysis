@@ -19,7 +19,7 @@ import re
 import unicodedata
 from os import path
 from PIL import Image
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+from wordcloud import WordCloud, ImageColorGenerator
 '''reload(sys)
 sys.setdefaultencoding('utf8')'''
 
@@ -161,8 +161,8 @@ def main_fun(channel, ent):
     wordlist = []
     all_words = word_string_neg.split()
     for word in all_words:
-        if word not in STOPWORDS:
-            wordlist.append(word)
+        #if word not in STOPWORDS:
+        wordlist.append(word)
     wordlist = nltk.FreqDist(wordlist)  #(word,frequency)
     word_string_neg = (",").join(wordlist)
     print(len(allTweets))
