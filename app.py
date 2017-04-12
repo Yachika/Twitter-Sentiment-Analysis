@@ -8,7 +8,7 @@ from subprocess import Popen, PIPE
 #import bring_graph
 #import bring_tweets
 #import make_wordcloud
-import all_in_one
+#import all_in_one
 
 app = Flask(__name__)
  
