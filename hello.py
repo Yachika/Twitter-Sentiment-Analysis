@@ -1,2 +1,0 @@
-def hel():
-  print("Hello")
